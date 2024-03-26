@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: 'postgres:alpine'
+    container_name: db_api_container
+    environment:
+      - POSTGRES_DB=mydatabase
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_USER=myuser
+    ports:
+      - 1532:5432
+    volumes:
+      - db_data:/var/lib/postgresql/data
+volumes:
+  db_data:
+    driver: local
+    driver_opts:
+      type: "nfs"
+      o: "addr=192.168.1.75,rw"
+      device: ":/mnt/truenas_storage/myAppData/ServerAppData/PostgreSQL/DEV/database_module_api"
